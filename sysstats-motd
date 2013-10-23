@@ -14,11 +14,11 @@ instanceid=`curl http://169.254.169.254/latest/meta-data/instance-id`
 pubip=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 iamrole=`curl http://169.254.169.254/latest/meta-data/iam/info | grep InstanceProfileArn | cut -d "/" -f 2 | sed 's/",//'`
 secgroups=`curl http://169.254.169.254/latest/meta-data/security-groups`
-utime=`uptime | sed -e 's/ [0-9:]* up /system is online >/' -e 's/,.*//'`
+utime=`uptime | sed -e 's/ [0-9:]* up /System is online >/' -e 's/,.*//'`
 echo "================= This Live "$utime" ================="
 echo " "
 echo "  OS Release:      "$release
-echo "  CPU:             "$CPU"  "$cores" Cores
+echo "  CPU:             "$CPU"  "$cores" Core(s)
 echo "  CPU usage:       "$cpuusage
 echo " "
 echo "  XVDA1 Usage:     "$diskusage"%              PublicIP:     "$pubip
