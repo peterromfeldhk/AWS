@@ -23,7 +23,7 @@ echo "  CPU usage:       "$cpuusage
 echo " "
 echo "  XVDA1 Usage:     "$diskusage"%              PublicIP:     "$pubip
 echo "  XVDA1 Free:      "$diskfree"M                 InstanceID:   "$instanceid
-echo "  Memory Usage:    "$Memory"%               Hostname:     "`hostname`
+echo "  Memory Usage:    "$Memory"%             Hostname:     "`hostname`
 echo "  Memory Free:     "$memfree"M                 Eth0:         "$inet
 echo "  IAM Role:        "$iamrole
 echo "  Security Groups: "$secgroups 
