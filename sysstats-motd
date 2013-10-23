@@ -18,7 +18,7 @@ utime=`uptime | sed -e 's/ [0-9:]* up /System is online >/' -e 's/,.*//'`
 echo "================= This Live "$utime" ================="
 echo " "
 echo "  OS Release:      "$release
-echo "  CPU:             "$CPU"  "$cores" Core(s)
+echo "  CPU:             "$CPU"  "$cores" Core(s)"
 echo "  CPU usage:       "$cpuusage
 echo " "
 echo "  XVDA1 Usage:     "$diskusage"%              PublicIP:     "$pubip
