@@ -1,0 +1,49 @@
+#!/bin/sh
+# On AWS LinuxAMI you can put this into /usr/local/bin/dynmotd
+# and add it:
+# echo "/usr/local/bin/dynmotd" >> /etc/profile
+# in sshd_config make sure you have "PrintMotd no"
+# make sure pam.d has pam_motd.so dissabled
+# "# session    optional     pam_motd.so"
+
+version=$(rpm -q --qf '%{version}' system-release)
+CPU=`cat /proc/cpuinfo | grep 'model name' | head -1 | cut -d':' -f2 | sed 's/^ *//'`
+Memory=`free | grep Mem | awk '{printf "%.4f", $3/$2 * 100.0}'`
+inet=`ifconfig | grep -A 1 eth0 | grep inet | cut -d ":" -f 3 | sed s/Mask//g`
+cpuusage=`top -bn1 | grep "Cpu(s)" | cut -d ":" -f 2 | sed 's/^ *//'`
+diskusage=`df -m | grep xvda1 | awk '{printf "%.4f", $3/$2 * 100.0}'`
+diskfree=`df -m | grep xvda1 | awk {'print $3'}`
+memfree=`free -m | grep Mem | awk '{print $4}'`
+cores=`cat /proc/cpuinfo | grep -c processor`
+release=`cat /proc/sys/kernel/osrelease`
+instanceid=`curl --silent http://169.254.169.254/latest/meta-data/instance-id`
+pubip=`curl --silent http://169.254.169.254/latest/meta-data/public-ipv4`
+iamrole=`curl --silent http://169.254.169.254/latest/meta-data/iam/info | grep InstanceProfileArn | cut -d "/" -f 2 | sed 's/",//'`
+secgroups=`curl --silent http://169.254.169.254/latest/meta-data/security-groups | sed 's/^/ /' | tr -d '\n' | sed 's/^\ //'`
+utime=`uptime | sed -e 's/ [0-9:]* up /system is online >/' -e 's/,.*//'`
+echo -e "\033[1;32m
+  ____  _____ ______     _______ ____  
+ / ___|| ____|  _ \ \   / / ____|  _ \ 
+ \___ \|  _| | |_) \ \ / /|  _| | |_) |
+  ___) | |___|  _ < \ V / | |___|  _ < 
+ |____/|_____|_| \_\ \_/  |_____|_| \_\
+                                  
+\033[1;31mhttps://aws.amazon.com/amazon-linux-ami/$version-release-notes/
+\033[0;35m================= \033[1;32mThis Live $utime \033[0;35m=================
+
+  \033[0;37mOS Release\033[0;35m:      \033[1;32m$release
+  \033[0;37mCPU\033[0;35m:             \033[1;32m$CPU  $cores Cores
+  \033[0;37mCPU usage\033[0;35m:       \033[1;32m$cpuusage
+
+  \033[0;37mXVDA1 Usage\033[0;35m:     \033[1;32m$diskusage%              \033[0;37mPublicIP\033[0;35m:     \033[1;32m$pubip
+  \033[0;37mXVDA1 Free\033[0;35m:      \033[1;32m$diskfree M                \033[0;37mInstanceID\033[0;35m:   \033[1;32m$instanceid
+  \033[0;37mMemory Usage\033[0;35m:    \033[1;32m$Memory%               \033[0;37mHostname\033[0;35m:     \033[1;32m`hostname`
+  \033[0;37mMemory Free\033[0;35m:     \033[1;32m$memfree M                \033[0;37mEth0\033[0;35m:         \033[1;32m$inet
+  \033[0;37mIAM Role\033[0;35m:        \033[1;32m$iamrole
+  \033[0;37mSecurity Groups\033[0;35m: \033[1;32m$secgroups 
+\033[0m\n"
+LANG=C /usr/bin/yum \
+    --debuglevel 2 \
+    --security check-update 2>/dev/null \
+        | grep -P '(?<! 0 packages) available$' \
+    && echo 'Run "sudo yum update" to apply all updates.'
