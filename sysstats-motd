@@ -1,8 +1,6 @@
 #!/bin/sh
-#
 CPU=`cat /proc/cpuinfo | grep 'model name' | head -1 | cut -d':' -f2 | sed 's/^ *//'`
 Memory=`free | grep Mem | awk '{printf "%.4f", $3/$2 * 100.0}'`
-Swap=`free -m | tail -n 1 | awk {'print $2'}`
 inet=`ifconfig | grep -A 1 eth0 | grep inet | cut -d ":" -f 3 | sed s/Mask//g`
 cpuusage=`top -bn1 | grep "Cpu(s)" | cut -d ":" -f 2 | sed 's/^ *//'`
 diskusage=`df -m | grep xvda1 | awk '{printf "%.4f", $3/$2 * 100.0}'`
@@ -10,21 +8,20 @@ diskfree=`df -m | grep xvda1 | awk {'print $3'}`
 memfree=`free -m | grep Mem | awk '{print $4}'`
 cores=`cat /proc/cpuinfo | grep -c processor`
 release=`cat /proc/sys/kernel/osrelease`
-instanceid=`curl http://169.254.169.254/latest/meta-data/instance-id`
-pubip=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
-iamrole=`curl http://169.254.169.254/latest/meta-data/iam/info | grep InstanceProfileArn | cut -d "/" -f 2 | sed 's/",//'`
-secgroups=`curl http://169.254.169.254/latest/meta-data/security-groups`
-utime=`uptime | sed -e 's/ [0-9:]* up /System is online >/' -e 's/,.*//'`
-echo "================= This Live "$utime" ================="
+instanceid=`curl --silent http://169.254.169.254/latest/meta-data/instance-id`
+pubip=`curl --silent http://169.254.169.254/latest/meta-data/public-ipv4`
+iamrole=`curl --silent http://169.254.169.254/latest/meta-data/iam/info | grep InstanceProfileArn | cut -d "/" -f 2 | sed 's/",//'`
+secgroups=`curl --silent http://169.254.169.254/latest/meta-data/security-groups`
 echo " "
 echo "  OS Release:      "$release
-echo "  CPU:             "$CPU"  "$cores" Core(s)"
+echo "  CPU:             "$CPU"  Cores:"$cores
 echo "  CPU usage:       "$cpuusage
 echo " "
 echo "  XVDA1 Usage:     "$diskusage"%              PublicIP:     "$pubip
 echo "  XVDA1 Free:      "$diskfree"M                 InstanceID:   "$instanceid
-echo "  Memory Usage:    "$Memory"%              Hostname:     "`hostname`
+echo "  Memory Usage:    "$Memory"%               Hostname:     "`hostname`
 echo "  Memory Free:     "$memfree"M                 Eth0:         "$inet
 echo "  IAM Role:        "$iamrole
 echo "  Security Groups: "$secgroups 
 echo " "
+
