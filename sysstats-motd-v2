@@ -9,7 +9,7 @@
 version=$(rpm -q --qf '%{version}' system-release)
 CPU=`cat /proc/cpuinfo | grep 'model name' | head -1 | cut -d':' -f2 | sed 's/^ *//'`
 Memory=`free | grep Mem | awk '{printf "%.4f", $3/$2 * 100.0}'`
-inet=`ifconfig | grep -A 1 eth0 | grep inet | cut -d ":" -f 3 | sed s/Mask//g`
+inet=`curl --silent http://169.254.169.254/latest/meta-data/local-ipv4`
 cpuusage=`top -bn1 | grep "Cpu(s)" | cut -d ":" -f 2 | sed 's/^ *//'`
 diskusage=`df -m | grep xvda1 | awk '{printf "%.4f", $3/$2 * 100.0}'`
 diskfree=`df -m | grep xvda1 | awk {'print $3'}`
