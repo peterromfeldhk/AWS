@@ -40,7 +40,7 @@ echo -e "\033[1;32m
   \033[0;37mXVDA1 Usage\033[0;35m:     \033[1;32m$diskusage%              \033[0;37mPublicIP\033[0;35m:     \033[1;32m$pubip
   \033[0;37mXVDA1 Free\033[0;35m:      \033[1;32m$diskfree M                \033[0;37mInstanceID\033[0;35m:   \033[1;32m$instanceid
   \033[0;37mMemory Usage\033[0;35m:    \033[1;32m$Memory%               \033[0;37mHostname\033[0;35m:     \033[1;32m`hostname`
-  \033[0;37mMemory Free\033[0;35m:     \033[1;32m$memfree M                \033[0;37mEth0\033[0;35m:         \033[1;32m$inet
+  \033[0;37mMemory Free\033[0;35m:     \033[1;32m$memfree M              \033[0;37mPrivateIP\033[0;35m:         \033[1;32m$inet
   \033[0;37mIAM Role\033[0;35m:        \033[1;32m$iamrole
   \033[0;37mSecurity Groups\033[0;35m: \033[1;32m$secgroups 
 \033[0m\n"
