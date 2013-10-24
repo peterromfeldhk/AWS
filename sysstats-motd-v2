@@ -3,6 +3,8 @@
 # and add it:
 # echo "/usr/local/bin/dynmotd" >> /etc/profile
 # in sshd_config make sure you have "PrintMotd no"
+# on AWS LinuxAMI:
+# sed -i 's/#PrintMotd\ yes/PrintMotd\ no/g' /etc/ssh/sshd_config
 # make sure pam.d has pam_motd.so dissabled
 # "# session    optional     pam_motd.so"
 
