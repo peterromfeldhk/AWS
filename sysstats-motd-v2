@@ -33,7 +33,7 @@ echo -e "\033[1;32m
   \033[1;31mhttps://aws.amazon.com/amazon-linux-ami/$version-release-notes/
  \033[0;35m================= \033[1;32mThis Live $utime \033[0;35m=================
 
-  \033[0;37mHK vs Locale\033[0;35m:    \033[0;37m`TZ=":Hongkong" date | cut -d " " -f 5`\033[0;35m: \033[1;32m`TZ=":Hongkong" date | cut -d " " -f 4` \033[0;37m`date | cut -d " " -f 5`\033[0;35m: \033[1;32m`date | cut -d " " -f 4`     \033[0;37mHK Weather\033[0;35m: \033[1;32m`curl -s http://rss.accuweather.com/rss/liveweather_rss.asp\?metric\=1\&locCode\=VHHH | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p'`
+  \033[0;37mHK vs Locale\033[0;35m:    \033[0;37m`TZ=":Hongkong" date | cut -d " " -f 5`\033[0;35m: \033[1;32m`TZ=":Hongkong" date | cut -d " " -f 4`  \033[0;37m`date | cut -d " " -f 5`\033[0;35m: \033[1;32m`date | cut -d " " -f 4`     \033[0;37mHK Weather\033[0;35m: \033[1;32m`curl -s http://rss.accuweather.com/rss/liveweather_rss.asp\?metric\=1\&locCode\=VHHH | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p'`
   \033[0;37mOS Release\033[0;35m:      \033[1;32m$release
   \033[0;37mCPU\033[0;35m:             \033[1;32m$CPU  $cores Cores
   \033[0;37mCPU usage\033[0;35m:       \033[1;32m$cpuusage
