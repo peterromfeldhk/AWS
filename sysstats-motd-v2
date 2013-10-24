@@ -22,14 +22,14 @@ iamrole=`curl --silent http://169.254.169.254/latest/meta-data/iam/info | grep I
 secgroups=`curl --silent http://169.254.169.254/latest/meta-data/security-groups | sed 's/^/ /' | tr -d '\n' | sed 's/^\ //'`
 utime=`uptime | sed -e 's/ [0-9:]* up /system is online >/' -e 's/,.*//'`
 echo -e "\033[1;32m
-  ____  _____ ______     _______ ____  
- / ___|| ____|  _ \ \   / / ____|  _ \ 
- \___ \|  _| | |_) \ \ / /|  _| | |_) |
-  ___) | |___|  _ < \ V / | |___|  _ < 
- |____/|_____|_| \_\ \_/  |_____|_| \_\
+   _   _ _____ _     _     _____        _____  ____  _     ____  
+  | | | | ____| |   | |   / _ \ \      / / _ \|  _ \| |   |  _ \ 
+  | |_| |  _| | |   | |  | | | \ \ /\ / / | | | |_) | |   | | | |
+  |  _  | |___| |___| |__| |_| |\ V  V /| |_| |  _ <| |___| |_| |
+  |_| |_|_____|_____|_____\___/  \_/\_/  \___/|_| \_\_____|____/ 
                                   
-\033[1;31mhttps://aws.amazon.com/amazon-linux-ami/$version-release-notes/
-\033[0;35m================= \033[1;32mThis Live $utime \033[0;35m=================
+  \033[1;31mhttps://aws.amazon.com/amazon-linux-ami/$version-release-notes/
+ \033[0;35m================= \033[1;32mThis Live $utime \033[0;35m=================
 
   \033[0;37mOS Release\033[0;35m:      \033[1;32m$release
   \033[0;37mCPU\033[0;35m:             \033[1;32m$CPU  $cores Cores
